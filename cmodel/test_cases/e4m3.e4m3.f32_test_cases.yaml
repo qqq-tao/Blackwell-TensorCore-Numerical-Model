@@ -1,0 +1,344 @@
+# test_cases.yaml
+defaults:  # 定义默认值
+  a: ["zero", "zero", "zero", "zero"]
+  b: ["zero", "zero", "zero", "zero"]
+  c: "zero"
+  expected_c: "zero"  # 默认的预期结果
+
+test_cases:  # 测例定义
+  case_1:
+    description: "Test case with default values for a, b, and c"
+    override: {}  # 不覆盖默认值
+    expected_c: "zero"  # 预期的结果
+
+  case_2:
+    description: "Test input A/B subnormal support"
+    override:
+      a: ["minsubnormal"]
+      b: ["four"]
+    expected_c: "math.ldexp(1.0, -7)"  # 预期的结果
+    expect: True
+
+  case_3:
+    description: "Test input C subnormal support math.ldexp(1.0, -139)"
+    override:
+      c: "math.ldexp(1.0, -139)"
+    expected_c: "math.ldexp(1.0, -139)"  # 预期的结果
+    expect: True
+  
+  case_3_1:
+    description: "Test input C f32 subnormal doesn't support math.ldexp(1.0, -149)"
+    override:
+      c: "minsubnormal"
+    expected_c: "minsubnormal"  # 预期的结果
+    expect: False
+  
+  case_3_2:
+    description: "Test input C support 13bit mantissa"
+    override:
+      c: "1+math.ldexp(1.0, -13)"
+    expected_c: "1+math.ldexp(1.0, -13)"  # 预期的结果
+    expect: True
+  
+  case_3_3:
+    description: "Test input C support 14bit mantissa"
+    override:
+      c: "1+math.ldexp(1.0, -14)"
+    expected_c: "1+math.ldexp(1.0, -14)"  # 预期的结果
+    expect: True
+
+  case_4:
+    description: "Test output D subnormal support"
+    override:
+      a: ["math.ldexp(1.0, -6)"]
+      b: ["math.ldexp(1.0, -7)"]
+      c: "one"
+    expected_c: "1 + math.ldexp(1.0,-13)"  # 预期的结果
+    expect: True
+
+  case_4_1:
+    description: "Test output D subnormal support"
+    override:
+      a: ["math.ldexp(1.0, -7)"]
+      b: ["math.ldexp(1.0, -7)"]
+      c: "one"
+    expected_c: "1 + math.ldexp(1.0,-14)"  # 预期的结果
+    expect: True
+
+#   # case_5:
+#   #   description: "Test output D subnormal support"
+#   #   override:
+#   #     c: "minsubnormal"
+#   #   expected_c: "minsubnormal"  # 预期的结果
+#   #   expect: True
+
+  case_5:
+    description: "Test Accuracy of the dot products"
+    override:
+      a: ["aboveone"]
+      b: ["aboveone"]
+    expected_c: "1 + math.ldexp(1, -2) + math.ldexp(1, -6)"  # 预期的结果
+    expect: True
+
+# —————————————————————— ROUNDING ——————————————————————
+  case_7:
+    description: "Test Rounding-to-Zero or Round-Down"
+    override:
+      a: ["one", "math.ldexp(1.0, -6)"]
+      b: ["one", "math.ldexp(1, -8) + math.ldexp(1, -9)"]
+    expected_c: "one"
+    expect: True
+
+  case_7_1:
+    description: "Test Rounding-to-Zero or Round-UP"
+    override:
+      a: ["one", "math.ldexp(1.0, -6)"]
+      b: ["minusone", "-math.ldexp(1, -8) - math.ldexp(1, -9)"]
+    expected_c: "minusone"
+    expect: True
+
+  case_8:
+    description: "Test \"Accumulator\" Rounding-to-Zero or Round-UP"
+    override:
+      a: ["one"]
+      b: ["minusone"]
+      c: "-math.ldexp(1, -14) - math.ldexp(1, -15)"
+    expected_c: "minusone"
+    expect: True
+
+  case_8_1:
+    description: "Test \"Accumulator\" Rounding-to-Zero or Round-Down"
+    override:
+      a: ["one"]
+      b: ["one"]
+      c: "math.ldexp(1.0, -14) + math.ldexp(1.0, -15) "
+    expected_c: "one"
+    expect: True
+  
+  case_9:
+    description: "Bits in mantissa add: support 13bits"
+    override:
+      a: ["math.ldexp(1, -9)", "one"]
+      b: ["math.ldexp(1.0, -4)", "one"]
+    expected_c: "1.0 + math.ldexp(1, -13)"
+    expect: True
+  
+  case_9_1:
+    description: "Test sticky bit in mantissa add: not supported"
+    override:
+      a: ["math.ldexp(1, -9)", "math.ldexp(1, -9)", "one"]
+      b: ["math.ldexp(1, -5)", "math.ldexp(1, -5)", "one"]
+    expected_c: "1.0 + math.ldexp(1, -13)"
+    expect: Fail
+
+  case_9_2:
+    description: "Test sticky bit in mantissa add: not supported"
+    override:
+      a: ["math.ldexp(1, -14)","math.ldexp(1, -14)", "one"]
+      b: ["one", "one", "one"]
+    expected_c: "1.0 + math.ldexp(1, -13)"
+    expect: Fail
+
+  case_10:
+    description: "Test extra bits for carry out, 5bits for FP8 K16"
+    override:
+      a: ["(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)","(1.75)", "(1.75)", "math.ldexp(1.0, -8)"]
+      b: ["(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.75)", "(1.0)"]     
+      c: "zero"
+    expected_c: "36.75+math.ldexp(1.0, -8)"
+    expect: True
+
+  case_11:
+    description: "Test exact bits in Accumulator: no extra bit supported"
+    override:
+      a: ["math.ldexp(1.0, -14)"]
+      b: ["minusone"]
+      c: "1.0+math.ldexp(1.0, -13)"
+    expected_c: "one"
+    expect: False
+
+
+  case_12:
+    description: "Test accumulate rank in Accumulator: (k8_0 + C) +k8_1"
+    override:
+      a: ["math.ldexp(1.0, -9)", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero",  
+          "math.ldexp(1.0, -9)", "zero", "zero", "zero", "zero", "zero", "zero", "zero"]
+      b: ["-math.ldexp(-1.0, -5)", "zero", "zero", "zero", "zero", "zero", "zero", "zero",  "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero",  
+          "math.ldexp(-1.0, -5)", "zero", "zero", "zero", "zero", "zero", "zero", "zero"]
+      c: "1.0 + math.ldexp(1.0, -13)"
+    expected_c: "1.0+ math.ldexp(1.0, -13)"
+    expect: True
+
+  case_12_1:
+    description: "Test accumulate rank in Accumulator: (k8_0 + C) +k8_1"
+    override:
+      a: ["math.ldexp(1.0, -9)", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", 
+          "math.ldexp(1.0, -9)", "zero", "zero", "zero", "zero", "zero", "zero", "zero"]
+      b: ["math.ldexp(-1.0, -5)", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", "zero", 
+          "math.ldexp(-1.0, -5)", "zero", "zero", "zero", "zero", "zero", "zero", "zero"]
+      c: "1.0 + math.ldexp(1.0, -13)"
+    expected_c: "1.0+ math.ldexp(1.0, -13)"
+    expect: True
+
+  case_16:
+    description: "Test QNaN + positive normalized number"
+    override:
+      a: ['one', 'one']
+      b: ['qnan', 'one']
+    expected_c: "(np.nan)"
+
+  case_17:
+    description: "Test QNaN + negative normalized number"
+    override:
+      a: ['one', 'one']
+      b: ['qnan', 'minusone']
+    expected_c: "(np.nan)"
+
+  case_18:
+    description: "QNaN + INF"
+    override:
+      a: ["one", "one"]
+      b: ["qnan", "inf"]
+    expected_c: "(np.nan)"
+
+  case_19:
+    description: "QNaN + QNaN"
+    override:
+      a: ["one", "one"]
+      b: ["qnan", "qnan"]
+    expected_c: "(np.nan)"
+
+  case_20:
+    description: "QNaN x normalized number"
+    override:
+      a: ["qnan"]
+      b: ["two"]
+    expected_c: "(np.nan)"
+
+  case_21:
+    description: "QNaN x 0"
+    override:
+      a: ["qnan"]
+      b: ["zero"]
+    expected_c: "(np.nan)"
+
+  case_22:  
+    description: "QNaN x INF"
+    override:
+      a: ["qnan"]
+      b: ["inf"]
+    expected_c: "(np.nan)"
+
+  case_23:
+    description: "QNaN x QNaN"
+    override:
+      a: ["qnan"]
+      b: ["qnan"]
+    expected_c: "(np.nan)"
+
+  case_24:
+    description: "QNaN x SNaN"
+    override:
+      a: ["qnan"]
+      b: ["snan"]
+    expected_c: "(np.nan)"
+
+  case_25:
+    description: "SNaN x normalized number"
+    override:
+      a: ["snan"]
+      b: ["one"]
+    expected_c: "(np.nan)"
+
+  case_26:
+    description: "SNaN x 0"
+    override:
+      a: ["snan"]
+      b: ["zero"]
+    expected_c: "(np.nan)"
+
+  case_27:
+    description: "SNaN x INF"
+    override:
+      a: ["snan"]
+      b: ["inf"]
+    expected_c: "(np.nan)"
+
+  case_28:
+    description: "SNaN x QNaN"
+    override:
+      a: ["snan"]
+      b: ["qnan"]
+    expected_c: "(np.nan)"
+
+  case_29:
+    description: "SNaN x SNaN"
+    override:
+      a: ["snan"]
+      b: ["snan"]
+    expected_c: "(np.nan)"
+
+  case_30:
+    description: "SNaN + normalized number"
+    override:
+      a: ["one"]
+      b: ["two"]
+      c: "snan"
+    expected_c: "(np.nan)"
+
+  case_31:
+    description: "0 x 0"
+    override:
+      a: ["zero"]
+      b: ["zero"]
+    expected_c: "zero"
+
+  case_32:
+    description: "0 x -0"
+    override:
+      a: ["zero"]
+      b: ["(-0.0)"]
+    expected_c: "zero"
+
+  case_33:
+    description: "-0 + 0"
+    override:
+     a: ["one", "one"]
+     b: ["(-0.0)", "zero"]
+    expected_c: "zero"
+  
+  case_34:
+    description: "INF x 1"
+    override:
+      a: ["inf"]
+      b: ["one"]
+    expected_c: "inf"
+  
+  case_34_1:
+    description: "INF - INF"
+    override:
+      a: ["inf", "minusone"]
+      b: ["one", "inf"]
+    expected_c: "qnan"
+  
+  case_35:
+    description: "INF + (-INF)"
+    override:
+      a: ["inf"]
+      b: ["minusone"]
+    expected_c: "(-np.inf)"
+
+  case_35_2:
+    description: "INF + (-INF)"
+    override:
+      a: ["inf"]
+      b: ["one"]
+    expected_c: "neg_inf"
+
+  case36:
+    description: "test rounding"
+    override:
+      a: ["math.ldexp(1.0, -14)", "math.ldexp(1.0, -14)", "math.ldexp(1.0, -14)", "math.ldexp(1.0, -14)"]
+      b: ["math.ldexp(1.0, -11)", "math.ldexp(1.0, -11)", "math.ldexp(1.0, -11)", "math.ldexp(1.0, -11)"]
+      c: "1+()"
+    expected_c: "1+ math.ldexp(1.0, -23)"

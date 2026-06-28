@@ -1,0 +1,96 @@
+Blackwell TensorCore Numerical Model Non-Commercial Academic Source License
+
+Copyright (c) 2026 Blackwell TensorCore Numerical Model contributors
+
+This license makes the source code available for non-commercial learning,
+teaching, and academic research. Commercial use requires a separate prior
+written license from the copyright holder.
+
+1. Definitions
+
+   "Software" means this repository, including source code, scripts,
+   documentation, examples, test cases, generated-kernel templates, and other
+   files distributed with this license.
+
+   "Non-Commercial Academic Use" means use solely for personal learning,
+   classroom teaching, academic coursework, academic publication support, or
+   non-commercial academic research.
+
+   "Commercial Use" means any use intended for, directed toward, or reasonably
+   connected to commercial advantage, monetary compensation, product
+   development, product validation, production deployment, paid services, or
+   internal research and development by or for a commercial entity.
+
+   Commercial Use includes, without limitation:
+
+   - selling, sublicensing, renting, or offering the Software for a fee;
+   - using the Software to provide consulting, cloud, validation, benchmarking,
+     simulation, optimization, or other paid services;
+   - incorporating the Software into a commercial product, service, workflow,
+     chip design flow, model development flow, compiler/toolchain, simulator,
+     benchmark suite, or validation pipeline;
+   - using the Software for internal commercial research, development,
+     benchmarking, testing, validation, procurement, competitive analysis,
+     production, or deployment;
+   - using the Software by, for, or under contract with a for-profit company or
+     other commercial entity, unless separately authorized in writing.
+
+2. License Grant for Non-Commercial Academic Use
+
+   Subject to this license, permission is granted, free of charge, to use, copy,
+   modify, and distribute the Software solely for Non-Commercial Academic Use.
+
+   Copies or modified versions may be distributed only under this same license.
+   This license text and the copyright notice above must be included in all
+   copies or substantial portions of the Software.
+
+3. Commercial Use Requires Separate Permission
+
+   Commercial Use is not permitted under this license. Any Commercial Use
+   requires a separate prior written license from the copyright holder.
+
+   Unauthorized Commercial Use is outside the scope of this license and is not
+   licensed. The copyright holder reserves all rights and remedies for
+   unauthorized Commercial Use, including the right to seek injunctive relief,
+   damages, profits, fees, and any other remedies available under applicable
+   law.
+
+4. Patent and Other Rights
+
+   No patent license is granted for Commercial Use. No trademark, trade secret,
+   or other rights are granted except as expressly stated in this license.
+
+   To the extent any patent license is necessary to exercise the rights granted
+   for Non-Commercial Academic Use, that license is limited to Non-Commercial
+   Academic Use only and terminates automatically upon any violation of this
+   license.
+
+5. Termination
+
+   This license terminates automatically if you violate its terms. After
+   termination, you must stop using, copying, modifying, and distributing the
+   Software unless and until the copyright holder grants separate written
+   permission.
+
+   Termination does not limit the copyright holder's right to enforce claims
+   based on unauthorized use before or after termination.
+
+6. Attribution
+
+   Publications, reports, or public materials that use the Software should cite
+   or acknowledge the Blackwell TensorCore Numerical Model project when
+   reasonably possible.
+
+7. No Warranty
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING
+   FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+   IN THE SOFTWARE.
+
+This is a source-available, non-commercial academic license. It is not an Open
+Source Initiative approved open-source license because commercial use is
+restricted.

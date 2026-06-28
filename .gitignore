@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+.deps/
+venv/
+env/
+
+# Build outputs and native extensions
+build/
+dist/
+*.so
+*.pyd
+*.cubin
+*.ptx
+*.sass
+*.ncu-rep
+a.out
+
+# Runtime outputs
+.coverage
+.coverage.*
+htmlcov/
+result/
+failed_cases/
+failed_cases_norm_case_3/
+*.log
+cprofile.txt
+validation_logs/
+
+# Local caches and archives
+pip_package_cache/
+pip_package_cache.tar.gz
+*.tar.gz
+
+# macOS
+.DS_Store

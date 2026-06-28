@@ -1,0 +1,252 @@
+{
+    "f16": {
+      "mix_precision": {
+        "output": ["f16", "f32"]
+      },
+      "dense": {
+        "combinations": [
+          [16, 8, 8],
+          [16, 8, 16]
+        ],
+        "subcore_shapes": [
+          [8, 8, 8]
+        ]
+      },
+      "sparse": {
+        "combinations": [
+          [16, 8, 16],
+          [16, 8, 32]
+        ],
+        "subcore_shapes": [
+          [8, 8, 8]
+        ]
+      }
+    },
+    "bf16": {
+      "mix_precision": {
+        "output": ["f32"]
+      },
+      "dense": {
+        "combinations": [
+          [16, 8, 8],
+          [16, 8, 16]
+        ],
+        "subcore_shapes": [
+          [8, 8, 8]
+        ]
+      },
+      "sparse": {
+        "combinations": [
+          [16, 8, 16],
+          [16, 8, 32]
+        ],
+        "subcore_shapes": [
+          [8, 8, 8]
+        ]
+      }
+    },
+    "e4m3": {
+      "mix_precision": {
+        "input": ["e4m3", "e5m2"],
+        "output": ["f32"]
+      },
+      "dense": {
+        "combinations": [
+          [16, 8, 16], [16, 8, 32]
+        ],
+        "subcore_shapes": [
+          [8, 8, 16]
+        ]
+      },
+      "sparse": {
+        "combinations": [
+          [16, 8, 64]
+        ],
+        "subcore_shapes": [
+          [8, 8, 16]
+        ]
+      }
+    },
+    "e5m2": {
+        "mix_precision": {
+            "input": ["e4m3", "e5m2"],
+            "output": ["f16"]
+        },
+        "dense": {
+            "combinations": [
+                [16, 8, 16], [16, 8, 32]
+            ],
+            "subcore_shapes": [
+                [8, 8, 16]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 64]
+            ],
+            "subcore_shapes": [
+            [8, 8, 16]
+            ]
+        }
+    },
+    "tf32": {
+        "mix_precision": {
+            "output": ["f32"]
+        },
+        "dense": {
+            "combinations": [
+                [16, 8, 4],
+                [16, 8, 8]
+            ],
+            "subcore_shapes": [
+                [8, 8, 4]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 8],
+                [16, 8, 16]
+            ],
+            "subcore_shapes": [
+                [8, 8, 4]
+            ]
+        }
+    },
+    "u8": {
+        "mix_precision": {
+            "input": ["u8", "s8"],
+            "output": ["s32"]
+        },
+        "dense": {
+            "combinations": [
+                [8, 8, 16],
+                [16, 8, 16],
+                [16, 8, 32]
+            ],
+            "subcore_shapes": [
+                [8, 8, 16]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 32],
+                [16, 8, 64]
+            ],
+            "subcore_shapes": [
+                [8, 8, 16]
+            ]
+        }
+    },
+    "s8": {
+        "mix_precision": {
+            "input": ["u8", "s8"],
+            "output": ["s32"]
+        },
+        "dense": {
+            "combinations": [
+                [8, 8, 16],
+                [16, 8, 16],
+                [16, 8, 32]
+            ],
+            "subcore_shapes": [
+                [8, 8, 16]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 32],
+                [16, 8, 64]
+            ],
+            "subcore_shapes": [
+                [8, 8, 16]
+            ]
+        }
+    },
+    "u4": {
+        "mix_precision": {
+            "input": ["u4", "s4"],
+            "output": ["s32"]
+        },
+        "dense": {
+            "combinations": [
+                [8, 8, 32],
+                [16, 8, 32],
+                [16, 8, 64]
+            ],
+            "subcore_shapes": [
+                [8, 8, 32]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 128]
+            ],
+            "subcore_shapes": [
+                [8, 8, 32]
+            ]
+        }
+    },
+    "e2m1": {
+        "mix_precision": {
+            "input": ["u4", "s4"],
+            "output": ["s32"]
+        },
+        "dense": {
+            "combinations": [
+                [8, 8, 32],
+                [16, 8, 32],
+                [16, 8, 64]
+            ],
+            "subcore_shapes": [
+                [8, 8, 32]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 128]
+            ],
+            "subcore_shapes": [
+                [8, 8, 32]
+            ]
+        }
+    },
+    "s4": {
+        "mix_precision": {
+            "input": ["u4", "s4"],
+            "output": ["s32"]
+        },
+        "dense": {
+            "combinations": [
+                [8, 8, 32],
+                [16, 8, 32],
+                [16, 8, 64]
+            ],
+            "subcore_shapes": [
+                [8, 8, 32]
+            ]
+        },
+        "sparse": {
+            "combinations": [
+                [16, 8, 128]
+            ],
+            "subcore_shapes": [
+                [8, 8, 32]
+            ]
+        }
+    },
+    "b1": {
+        "mix_precision": {
+            "output": ["s32"]
+        },
+        "dense": {
+            "combinations": [
+                [8, 8, 128],
+                [16, 8, 128],
+                [16, 8, 256]
+            ],
+            "subcore_shapes": [
+                [8, 8, 128]
+            ]
+        }
+    }
+}
